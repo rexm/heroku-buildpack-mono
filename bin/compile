@@ -71,6 +71,10 @@ find `pwd` -name "NuGet.targets" -exec dirname {} \; | xargs -I {} ln -s {}/NuGe
 BUILD_CACHE_LOCATION=${CACHE_DIR}/build/
 mkdir -p ${BUILD_CACHE_LOCATION}
 
+sudo mozroots --import --machine --sync
+sudo certmgr -ssl -m https://go.microsoft.com
+sudo certmgr -ssl -m https://nugetgallery.blob.core.windows.net
+sudo certmgr -ssl -m https://nuget.org
 EnableNuGetPackageRestore=true xbuild /property:Configuration=Release /property:OutDir=${BUILD_CACHE_LOCATION} ${SLN}
 
 cp -r ${BUILD_CACHE_LOCATION}* ${BUILD_DIR}
